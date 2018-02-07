@@ -22,6 +22,14 @@ def branchNameHY
 def branchType
 def artifactoryRepoURL
 
+
+node ('maven') {
+    echo "BEGIN..."
+
+    echo "END"
+}
+
+/*
 node('maven') {
     checkout([$class: 'GitSCM', branches: [[name: 'feature/jenkinsfile']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '/tmp/configs']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '4b18ea85-c50b-40f4-9a81-e89e44e20178', url: 'https://github.com/jucaf/innocv-worldcoo']]])
     echo "ESTE ES EL DEFAULT"
@@ -225,10 +233,13 @@ if (deploy == 'Yes') {
     }
 }
 
+*/
+
+/*
 stage('Notification') {
     echo "Sending Notifications..."
 
-    /*
+
     if (currentBuild.result != 'SUCCESS') {
         slackSend channel: '#ops-room', color: '#FF0000', message: "The pipeline ${currentBuild.fullDisplayName} has failed."
         hipchatSend (color: 'RED', notify: true, message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
@@ -239,5 +250,6 @@ stage('Notification') {
             recipientProviders: [[$class: 'DevelopersRecipientProvider']]
           )
     }
-    */
+
 }
+*/
