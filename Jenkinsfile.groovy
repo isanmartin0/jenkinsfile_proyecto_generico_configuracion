@@ -31,7 +31,7 @@ def runJenkinsfile() {
     node('maven') {
         echo "BEGIN...(PGC)"
 
-        final scmVars = checkou(scm)
+        final scmVars = checkout(scm)
 
         stage('Prepare') {
             echo "Prepare stage (PGC)"
