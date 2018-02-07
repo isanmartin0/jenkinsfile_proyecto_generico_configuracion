@@ -33,6 +33,8 @@ node ('maven') {
     echo "END (PGC)"
 }
 
+return this
+
 /*
 node('maven') {
     checkout([$class: 'GitSCM', branches: [[name: 'feature/jenkinsfile']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '/tmp/configs']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '4b18ea85-c50b-40f4-9a81-e89e44e20178', url: 'https://github.com/jucaf/innocv-worldcoo']]])
