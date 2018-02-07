@@ -24,13 +24,13 @@ def artifactoryRepoURL
 
 
 node ('maven') {
-    echo "BEGIN..."
+    echo "BEGIN...(PGC)"
 
     stage('Prepare') {
-        echo "Prepare stage"
+        echo "Prepare stage (PGC)"
     }
 
-    echo "END"
+    echo "END (PGC)"
 }
 
 /*
