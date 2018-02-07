@@ -26,6 +26,10 @@ def artifactoryRepoURL
 node ('maven') {
     echo "BEGIN..."
 
+    stage('Prepare') {
+        echo "Prepare stage"
+    }
+
     echo "END"
 }
 
