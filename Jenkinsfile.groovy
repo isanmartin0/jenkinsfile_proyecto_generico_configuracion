@@ -29,6 +29,8 @@ def runJenkinsfile() {
 
         stage('Prepare') {
             echo "Prepare stage (PGC)"
+
+            setDisplayName()
         }
 
         echo "END (PGC)"
