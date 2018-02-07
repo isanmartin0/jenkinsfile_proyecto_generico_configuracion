@@ -31,7 +31,7 @@ def runJenkinsfile() {
     node('maven') {
         echo "BEGIN...(PGC)"
 
-        checkout scm
+        final scmVars = checkout scm
 
         stage('Prepare') {
             echo "Prepare stage (PGC)"
@@ -46,6 +46,8 @@ def runJenkinsfile() {
             echo "This branch is a ${branchType} branch"
             branchNameHY = branchName.replace("/", "-").replace(".", "-")
             echo "Branch name processed: ${branchName}"
+
+            echo "scmVars: ${scmVars}"
         }
 
         echo "END (PGC)"
