@@ -27,6 +27,8 @@ def runJenkinsfile() {
     node('maven') {
         echo "BEGIN...(PGC)"
 
+        checkout scm
+
         stage('Prepare') {
             echo "Prepare stage (PGC)"
 
