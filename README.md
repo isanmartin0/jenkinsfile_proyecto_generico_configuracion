@@ -1,0 +1,1 @@
+# jenkinsfile_proyecto_generico_configuracion
