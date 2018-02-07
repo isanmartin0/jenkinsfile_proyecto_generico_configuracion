@@ -47,9 +47,26 @@ def runJenkinsfile() {
             branchNameHY = branchName.replace("/", "-").replace(".", "-")
             echo "Branch name processed: ${branchName}"
 
-            echo "scmVars: ${scmVars}"
-            echo "scmVars.GIT_COMMIT: ${scmVars.GIT_COMMIT}"
-            echo "scmVars.GIT_BRANCH: ${scmVars.GIT_BRANCH}"
+
+        }
+
+        stage('Detect Parallel project configuration (PPC)') {
+
+            try {
+                def parallelConfigurationProject = 'https://github.com/isanmartin0/proyecto-paralelo-ppc'
+
+                checkout([$class                           : 'GitSCM',
+                          branches                         : [[name: 'master']],
+                          doGenerateSubmoduleConfigurations: false,
+                          extensions                       : [[$class           : 'RelativeTargetDirectory',
+                                                               relativeTargetDir: '/tmp/configs']],
+                          submoduleCfg                     : [],
+                          userRemoteConfigs                : [[credentialsId: 'f8692545-6ab0-479b-aac6-02f66050aab4',
+                                                               url          : parallelConfigurationProject]]])
+            }
+            catch (exc) {
+                echo 'Something failed, I should sound the klaxons!'
+            }
         }
 
         echo "END (PGC)"
