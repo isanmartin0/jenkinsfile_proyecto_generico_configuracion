@@ -33,6 +33,15 @@ def runJenkinsfile() {
             echo "Prepare stage (PGC)"
 
             setDisplayName()
+
+            echo "${currentBuild.displayName}"
+
+            branchName = utils.getBranch()
+            echo "We are on branch ${branchName}"
+            branchType = utils.getBranchType(branchName)
+            echo "This branch is a ${branchType} branch"
+            branchNameHY = branchName.replace("/", "-").replace(".", "-")
+            echo "Branch name processed: ${branchName}"
         }
 
         echo "END (PGC)"
