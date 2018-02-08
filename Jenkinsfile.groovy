@@ -26,10 +26,18 @@ def runJenkinsfile() {
     def branchNameHY
     def branchType
     def artifactoryRepoURL
+    def branchPPC = 'master'
+    def credentialsIdPPC = '\'f8692545-6ab0-479b-aac6-02f66050aab4\''
+    def relativeTargetDirPPC = '/tmp/configs/'
     def isPPCJenkinsYaml = false
     def isPPCApplicationDevProperties = false
     def isPPCApplicationUatProperties = false
     def isPPCApplicationProdProperties = false
+    def jenkinsYamlPathPPC = '/tmp/configs/Jenkins.yml'
+    def applicationDevPropertiesPathPPC = '/tmp/configs//configuration_profiles/dev/application-dev.properties'
+    def applicationUatPropertiesPathPPC = '/tmp/configs//configuration_profiles/uat/application-uat.properties'
+    def applicationProdPropertiesPathPPC = '/tmp/configs//configuration_profiles/prod/application-prod.properties'
+
 
 
     node('maven') {
@@ -66,19 +74,19 @@ def runJenkinsfile() {
                 echo "Parallel configuration project ${parallelConfigurationProject} searching"
 
                 checkout([$class                           : 'GitSCM',
-                          branches                         : [[name: 'master']],
+                          branches                         : [[name: branchPPC]],
                           doGenerateSubmoduleConfigurations: false,
                           extensions                       : [[$class           : 'RelativeTargetDirectory',
-                                                               relativeTargetDir: '/tmp/configs']],
+                                                               relativeTargetDir: relativeTargetDirPPC]],
                           submoduleCfg                     : [],
-                          userRemoteConfigs                : [[credentialsId: 'f8692545-6ab0-479b-aac6-02f66050aab4',
+                          userRemoteConfigs                : [[credentialsId: credentialsIdPPC,
                                                                url          : parallelConfigurationProject]]])
 
                 echo "Parallel configuration project ${parallelConfigurationProject} exits"
 
                 // Jenkins.yml
                 try {
-                    params = readYaml file: '/tmp/configs/Jenkins.yml'
+                    params = readYaml file: jenkinsYamlPathPPC
                     isPPCJenkinsYaml = true
                     echo "Parallel configuration project Jenkins.yml found"
                 } catch (exc) {
@@ -87,7 +95,7 @@ def runJenkinsfile() {
 
 
                 //application-dev.properties
-                isPPCApplicationDevProperties = fileExists '/tmp/configs//configuration_profiles/application-dev.properties'
+                isPPCApplicationDevProperties = fileExists applicationDevPropertiesPathPPC
 
                 if (isPPCApplicationDevProperties) {
                     echo "Parallel configuration project profile application-dev.properties found"
@@ -96,7 +104,7 @@ def runJenkinsfile() {
                 }
 
                 //application-uat.properties
-                isPPCApplicationUatProperties = fileExists '/tmp/configs//configuration_profiles/application-uat.properties'
+                isPPCApplicationUatProperties = fileExists applicationUatPropertiesPathPPC
 
                 if (isPPCApplicationUatProperties) {
                     echo "Parallel configuration project profile application-uat.properties found"
@@ -106,7 +114,7 @@ def runJenkinsfile() {
 
 
                 //application-prod.properties
-                isPPCApplicationProdProperties = fileExists '/tmp/configs//configuration_profiles/application-prod.properties'
+                isPPCApplicationProdProperties = fileExists applicationProdPropertiesPathPPC
 
                 if (isPPCApplicationProdProperties) {
                     echo "Parallel configuration project profile application-prod.properties found"
