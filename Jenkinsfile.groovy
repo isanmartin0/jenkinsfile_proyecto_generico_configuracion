@@ -43,7 +43,7 @@ def runGenericJenkinsfile() {
     def applicationDevPropertiesPathPPC = '/tmp/configs/configuration_profiles/dev/application-dev.properties'
     def applicationUatPropertiesPathPPC = '/tmp/configs/configuration_profiles/uat/application-uat.properties'
     def applicationProdPropertiesPathPPC = '/tmp/configs/configuration_profiles/prod/application-prod.properties'
-    def jeinknsFilePipelinePPC
+    def jenknsFilePipelinePPC
 
 
     node('maven') {
@@ -169,7 +169,7 @@ def runGenericJenkinsfile() {
 
                 echo "Loading Jenkinsfile from Parallel Configuration Project (PPC)"
 
-                jeinknsFilePipelinePPC = load jenkinsFilePathPPC
+                jenknsFilePipelinePPC = load jenkinsFilePathPPC
 
                 echo "Jenkinsfile from Parallel Configuration Project (PPC) loaded"
             }
