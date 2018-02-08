@@ -26,6 +26,8 @@ def runGenericJenkinsfile() {
     def branchNameHY
     def branchType
     def artifactoryRepoURL
+
+
     def branchPPC = 'master'
     def credentialsIdPPC = '\'f8692545-6ab0-479b-aac6-02f66050aab4\''
     def relativeTargetDirPPC = '/tmp/configs/'
@@ -41,7 +43,7 @@ def runGenericJenkinsfile() {
     def applicationDevPropertiesPathPPC = '/tmp/configs/configuration_profiles/dev/application-dev.properties'
     def applicationUatPropertiesPathPPC = '/tmp/configs/configuration_profiles/uat/application-uat.properties'
     def applicationProdPropertiesPathPPC = '/tmp/configs/configuration_profiles/prod/application-prod.properties'
-
+    def jeinknsFilePipelinePPC
 
 
     node('maven') {
@@ -162,7 +164,12 @@ def runGenericJenkinsfile() {
     }
 
     if (isPPCJenkinsFile) {
-        echo "Executing Jenkinsfile from Parallel Configuration Project (PPC)"
+        echo "Loading Jenkinsfile from Parallel Configuration Project (PPC)"
+
+        jeinknsFilePipelinePPC = load jenkinsFilePathPPC
+
+        echo "Jenkinsfile from Parallel Configuration Project (PPC) loaded"
+
     } else {
         echo "Executing Jenkinsfile from Generic Configuration Project (PPC)"
     }
