@@ -160,19 +160,30 @@ def runGenericJenkinsfile() {
             }
         }
 
+
+
+
+        if (isPPCJenkinsFile) {
+
+            stage('Switch to parallel configuration project Jenkinsfile') {
+
+                echo "Loading Jenkinsfile from Parallel Configuration Project (PPC)"
+
+                jeinknsFilePipelinePPC = load jenkinsFilePathPPC
+
+                echo "Jenkinsfile from Parallel Configuration Project (PPC) loaded"
+            }
+
+
+        } else {
+            echo "Executing Jenkinsfile from Generic Configuration Project (PPC)"
+        }
+
+
+
         echo "END (PGC)"
     }
 
-    if (isPPCJenkinsFile) {
-        echo "Loading Jenkinsfile from Parallel Configuration Project (PPC)"
-
-        jeinknsFilePipelinePPC = load jenkinsFilePathPPC
-
-        echo "Jenkinsfile from Parallel Configuration Project (PPC) loaded"
-
-    } else {
-        echo "Executing Jenkinsfile from Generic Configuration Project (PPC)"
-    }
 }
 
 return this;
