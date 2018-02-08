@@ -28,21 +28,28 @@ def runGenericJenkinsfile() {
 
 
     def branchPPC = 'master'
-    def credentialsIdPPC = '\'f8692545-6ab0-479b-aac6-02f66050aab4\''
-    def relativeTargetDirPPC = '/tmp/configs/'
+    def credentialsIdPPC = 'f8692545-6ab0-479b-aac6-02f66050aab4'
+    def relativeTargetDirPPC = '/ppc/configs/'
     def isPPCJenkinsFile = false
     def isPPCJenkinsYaml = false
     def isPPCOpenshiftTemplate = false
     def isPPCApplicationDevProperties = false
     def isPPCApplicationUatProperties = false
     def isPPCApplicationProdProperties = false
-    def jenkinsFilePathPPC = '/tmp/configs/Jenkinsfile'
-    def jenkinsYamlPathPPC = '/tmp/configs/Jenkins.yml'
-    def openshiftTemplatePathPPC = '/tmp/configs/kube/template.yaml'
-    def applicationDevPropertiesPathPPC = '/tmp/configs/configuration_profiles/dev/application-dev.properties'
-    def applicationUatPropertiesPathPPC = '/tmp/configs/configuration_profiles/uat/application-uat.properties'
-    def applicationProdPropertiesPathPPC = '/tmp/configs/configuration_profiles/prod/application-prod.properties'
+    def jenkinsFilePathPPC = '/ppc/configs/Jenkinsfile'
+    def jenkinsYamlPathPPC = '/ppc/configs/Jenkins.yml'
+    def openshiftTemplatePathPPC = '/ppc/configs/kube/template.yaml'
+    def applicationDevPropertiesPathPPC = '/ppc/configs/configuration_profiles/dev/application-dev.properties'
+    def applicationUatPropertiesPathPPC = '/ppc/configs/configuration_profiles/uat/application-uat.properties'
+    def applicationProdPropertiesPathPPC = '/ppc/configs/configuration_profiles/prod/application-prod.properties'
     def jenknsFilePipelinePPC
+
+    def gitDefaultProjectConfigurationPath='https://github.com/isanmartin0/jenkinsfile_proyecto_generico_configuracion'
+    def relativeTargetDirGenericPGC = '/generic/configs/'
+    def branchGenericPGC = 'master'
+    def credentialsIdGenericPGC = 'f8692545-6ab0-479b-aac6-02f66050aab4'
+    def jenkinsYamlGenericPath = '/generic/configs/Jenkins.yml'
+    def openshiftTemplateGenericPath = '/generic/configs/kube/template.yaml'
 
 
     node('maven') {
@@ -75,6 +82,18 @@ def runGenericJenkinsfile() {
 
             try {
                 def parallelConfigurationProject = utils.getParallelConfigurationProjectURL(projectURL, artifactId)
+
+                echo "Generic configuration project loading"
+
+                checkout([$class                           : 'GitSCM',
+                          branches                         : [[name: branchGenericPGC]],
+                          doGenerateSubmoduleConfigurations: false,
+                          extensions                       : [[$class           : 'RelativeTargetDirectory',
+                                                               relativeTargetDir: relativeTargetDirGenericPGC]],
+                          submoduleCfg                     : [],
+                          userRemoteConfigs                : [[credentialsId: credentialsIdGenericPGC,
+                                                               url          : gitDefaultProjectConfigurationPath]]])
+
 
                 echo "Parallel configuration project ${parallelConfigurationProject} searching"
 
@@ -188,7 +207,7 @@ def runGenericJenkinsfile() {
 
                 } else {
                     echo "Loading Generic Configuration Project (PGC) Jenkins.yml"
-                    params = readYaml  file: 'Jenkins.yml'
+                    params = readYaml  file: jenkinsYamlGenericPath
                     echo "Generic Configuration Project (PGC) Jenkins.yml loaded"
                 }
 
