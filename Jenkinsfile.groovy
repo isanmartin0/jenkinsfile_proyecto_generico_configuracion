@@ -5,7 +5,7 @@ import com.evobanco.Utils
 
 
 
-//def runJenkinsfile() {
+def runJenkinsfile() {
 
     def utils = new com.evobanco.Utils()
 
@@ -160,7 +160,7 @@ import com.evobanco.Utils
 
         echo "END (PGC)"
     }
-//}
+}
 
 return this;
 
