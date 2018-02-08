@@ -35,7 +35,7 @@ def runJenkinsfile() {
     def isPPCApplicationDevProperties = false
     def isPPCApplicationUatProperties = false
     def isPPCApplicationProdProperties = false
-    def jenkinsFilePathPPC = '/tmp/configs/Jenkins'
+    def jenkinsFilePathPPC = '/tmp/configs/Jenkinsfile'
     def jenkinsYamlPathPPC = '/tmp/configs/Jenkins.yml'
     def openshiftTemplatePathPPC = '/tmp/configs/kube/template.yaml'
     def applicationDevPropertiesPathPPC = '/tmp/configs/configuration_profiles/dev/application-dev.properties'
