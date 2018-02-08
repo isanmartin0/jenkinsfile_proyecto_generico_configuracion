@@ -71,6 +71,10 @@ def runJenkinsfile() {
                                                                url          : parallelConfigurationProject]]])
 
                 echo "Parallel configuration project ${parallelConfigurationProject} exits"
+
+                params = readYaml  file: '/tmp/configs/Jenkins.yml'
+
+                echo "Parallel configuration project params loaded"
             }
             catch (exc) {
                 echo 'Something failed, I should sound the klaxons!'
