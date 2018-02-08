@@ -96,21 +96,21 @@ def runJenkinsfile() {
                 }
 
                 //application-uat.properties
-                try {
-                    readProperties file: '/tmp/configs//configuration_profiles/application-uat.properties'
-                    isPPCApplicationUatProperties = true
+                isPPCApplicationUatProperties = fileExists '/tmp/configs//configuration_profiles/application-uat.properties'
+
+                if (isPPCApplicationUatProperties) {
                     echo "Parallel configuration project profile application-uat.properties found"
-                } catch (exc) {
+                } else {
                     echo "Parallel configuration project profile application-uat.properties not found"
                 }
 
 
                 //application-prod.properties
-                try {
-                    readProperties file: '/tmp/configs//configuration_profiles/application-prod.properties'
-                    isPPCApplicationProdProperties = true
+                isPPCApplicationProdProperties = fileExists '/tmp/configs//configuration_profiles/application-prod.properties'
+
+                if (isPPCApplicationProdProperties) {
                     echo "Parallel configuration project profile application-prod.properties found"
-                } catch (exc) {
+                } else {
                     echo "Parallel configuration project profile application-prod.properties not found"
                 }
 
