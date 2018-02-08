@@ -172,6 +172,10 @@ def runGenericJenkinsfile() {
                 jenknsFilePipelinePPC = load jenkinsFilePathPPC
 
                 echo "Jenkinsfile from Parallel Configuration Project (PPC) loaded"
+
+                echo "Executing Jenkinsfile from Parallel Configuration Project (PPC)"
+
+                jenknsFilePipelinePPC.runPPCJenkinsfile()
             }
 
 
