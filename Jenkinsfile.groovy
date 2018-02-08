@@ -5,7 +5,7 @@ import com.evobanco.Utils
 
 
 
-def runJenkinsfile() {
+def runGenericJenkinsfile() {
 
     def utils = new com.evobanco.Utils()
 
@@ -159,6 +159,12 @@ def runJenkinsfile() {
         }
 
         echo "END (PGC)"
+    }
+
+    if (isPPCJenkinsFile) {
+        echo "Executing Jenkinsfile from Parallel Configuration Project (PPC)"
+    } else {
+        echo "Executing Jenkinsfile from Generic Configuration Project (PPC)"
     }
 }
 
