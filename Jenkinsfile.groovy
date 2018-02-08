@@ -31,7 +31,7 @@ def runJenkinsfile() {
     node('maven') {
         echo "BEGIN...(PGC)"
 
-        final scmVars = checkout(scm)
+        checkout scm
 
         stage('Prepare') {
             echo "Prepare stage (PGC)"
@@ -52,8 +52,12 @@ def runJenkinsfile() {
 
         stage('Detect Parallel project configuration (PPC)') {
 
+            def pom = readMavenPom()
+            def projectURL = pom.url
+            def artifactId = pom.artifactId
+
             try {
-                def parallelConfigurationProject = 'https://github.com/isanmartin0/proyecto-paralelo-ppc'
+                def parallelConfigurationProject = utils.getParallelConfigurationProjectURL(projectURL, artifactId)
 
                 checkout([$class                           : 'GitSCM',
                           branches                         : [[name: 'master']],
@@ -63,6 +67,8 @@ def runJenkinsfile() {
                           submoduleCfg                     : [],
                           userRemoteConfigs                : [[credentialsId: 'f8692545-6ab0-479b-aac6-02f66050aab4',
                                                                url          : parallelConfigurationProject]]])
+
+                echo "Parallel configuration project " parallelConfigurationProject " exits"
             }
             catch (exc) {
                 echo 'Something failed, I should sound the klaxons!'
