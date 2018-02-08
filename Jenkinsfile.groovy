@@ -85,11 +85,13 @@ def runJenkinsfile() {
                     echo "Parallel configuration project Jenkins.yml not found"
                 }
 
-                try {
-                    readProperties file: '/tmp/configs//configuration_profiles/application-dev.properties'
-                    isPPCApplicationDevProperties = true
+
+                //application-dev.properties
+                isPPCApplicationDevProperties = fileExists '/tmp/configs//configuration_profiles/application-dev.properties'
+
+                if (isPPCApplicationDevProperties)
                     echo "Parallel configuration project profile application-dev.properties found"
-                } catch (exc) {
+                } else {
                     echo "Parallel configuration project profile application-dev.properties not found"
                 }
 
