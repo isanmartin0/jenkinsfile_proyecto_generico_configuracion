@@ -159,7 +159,7 @@ def runGenericJenkinsfile() {
             }
         }
 
-        isPPCJenkinsFile=false
+        isPPCJenkinsFile = false
         isPPCJenkinsYaml = false
 
 
