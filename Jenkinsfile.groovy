@@ -1,5 +1,4 @@
 #!/usr/bin/groovy
-
 import com.evobanco.Utils
 
 
@@ -47,8 +46,8 @@ def runGenericJenkinsfile() {
 
 
     node('maven') {
-        echo "BEGIN...(PGC)"
-
+        echo "BEGIN GENERIC CONFIGURATION PROJECT (PGC)"
+        sleep 10
         checkout scm
 
         stage('Prepare') {
@@ -160,7 +159,8 @@ def runGenericJenkinsfile() {
             }
         }
 
-
+        isPPCJenkinsFile=false
+        isPPCJenkinsYaml = false
 
 
         if (isPPCJenkinsFile) {
@@ -181,6 +181,18 @@ def runGenericJenkinsfile() {
 
         } else {
             echo "Executing Jenkinsfile from Generic Configuration Project (PPC)"
+
+            stage('Load pipeline configuration') {
+
+                if (isPPCJenkinsYaml) {
+
+                } else {
+                    echo "Loading Generic Configuration Project (PGC) Jenkins.yml"
+                    params = readYaml  file: 'Jenkins.yml'
+                    echo "Generic Configuration Project (PGC) Jenkins.yml loaded"
+                }
+
+            }
         }
 
 
