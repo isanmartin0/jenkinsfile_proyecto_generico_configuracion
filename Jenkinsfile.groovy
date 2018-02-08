@@ -72,9 +72,13 @@ def runJenkinsfile() {
 
                 echo "Parallel configuration project ${parallelConfigurationProject} exits"
 
-                params = readYaml  file: '/tmp/configs/Jenkins.yml'
+                try {
+                    params = readYaml file: '/tmp/configs/Jenkins.yml'
+                    echo "Parallel configuration project params loaded"
+                } catch (exc) {
+                    echo 'Something failed at params loading'
+                }
 
-                echo "Parallel configuration project params loaded"
             }
             catch (exc) {
                 echo 'Something failed, I should sound the klaxons!'
