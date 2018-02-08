@@ -59,7 +59,7 @@ def runJenkinsfile() {
             try {
                 def parallelConfigurationProject = utils.getParallelConfigurationProjectURL(projectURL, artifactId)
 
-                echo "Parallel configuration project " parallelConfigurationProject " searching"
+                echo "Parallel configuration project ${parallelConfigurationProject} searching"
 
                 checkout([$class                           : 'GitSCM',
                           branches                         : [[name: 'master']],
@@ -70,7 +70,7 @@ def runJenkinsfile() {
                           userRemoteConfigs                : [[credentialsId: 'f8692545-6ab0-479b-aac6-02f66050aab4',
                                                                url          : parallelConfigurationProject]]])
 
-                echo "Parallel configuration project " parallelConfigurationProject " exits"
+                echo "Parallel configuration project ${parallelConfigurationProject} exits"
             }
             catch (exc) {
                 echo 'Something failed, I should sound the klaxons!'
