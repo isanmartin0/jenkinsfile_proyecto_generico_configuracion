@@ -29,14 +29,18 @@ def runJenkinsfile() {
     def branchPPC = 'master'
     def credentialsIdPPC = '\'f8692545-6ab0-479b-aac6-02f66050aab4\''
     def relativeTargetDirPPC = '/tmp/configs/'
+    def isPPCJenkinsFile = false
     def isPPCJenkinsYaml = false
+    def isPPCOpenshiftTemplate = false
     def isPPCApplicationDevProperties = false
     def isPPCApplicationUatProperties = false
     def isPPCApplicationProdProperties = false
+    def jenkinsFilePathPPC = '/tmp/configs/Jenkins'
     def jenkinsYamlPathPPC = '/tmp/configs/Jenkins.yml'
-    def applicationDevPropertiesPathPPC = '/tmp/configs//configuration_profiles/dev/application-dev.properties'
-    def applicationUatPropertiesPathPPC = '/tmp/configs//configuration_profiles/uat/application-uat.properties'
-    def applicationProdPropertiesPathPPC = '/tmp/configs//configuration_profiles/prod/application-prod.properties'
+    def openshiftTemplatePathPPC = '/tmp/configs/kube/template.yaml'
+    def applicationDevPropertiesPathPPC = '/tmp/configs/configuration_profiles/dev/application-dev.properties'
+    def applicationUatPropertiesPathPPC = '/tmp/configs/configuration_profiles/uat/application-uat.properties'
+    def applicationProdPropertiesPathPPC = '/tmp/configs/configuration_profiles/prod/application-prod.properties'
 
 
 
@@ -84,15 +88,33 @@ def runJenkinsfile() {
 
                 echo "Parallel configuration project ${parallelConfigurationProject} exits"
 
+                // Jenkinsfile
+                isPPCJenkinsFile = fileExists jenkinsFilePathPPC
+
+                if (isPPCJenkinsFile) {
+                    echo "Parallel configuration project Jenkinsfile found"
+                } else {
+                    echo "Parallel configuration project Jenkinsfile not found"
+                }
+
+
                 // Jenkins.yml
-                try {
-                    params = readYaml file: jenkinsYamlPathPPC
-                    isPPCJenkinsYaml = true
+                isPPCJenkinsYaml = fileExists jenkinsYamlPathPPC
+
+                if (isPPCJenkinsYaml) {
                     echo "Parallel configuration project Jenkins.yml found"
-                } catch (exc) {
+                } else {
                     echo "Parallel configuration project Jenkins.yml not found"
                 }
 
+                // Openshift template (template.yaml)
+                isPPCOpenshiftTemplate = fileExists openshiftTemplatePathPPC
+
+                if (isPPCOpenshiftTemplate) {
+                    echo "Parallel configuration project Openshift template found"
+                } else {
+                    echo "Parallel configuration project Openshift template not found"
+                }
 
                 //application-dev.properties
                 isPPCApplicationDevProperties = fileExists applicationDevPropertiesPathPPC
@@ -122,7 +144,10 @@ def runJenkinsfile() {
                     echo "Parallel configuration project profile application-prod.properties not found"
                 }
 
+
+                echo "isPPCJenkinsFile : ${isPPCJenkinsFile}"
                 echo "isPPCJenkinsYaml : ${isPPCJenkinsYaml}"
+                echo "isPPCOpenshiftTemplate : ${isPPCOpenshiftTemplate}"
                 echo "isPPCApplicationDevProperties : ${isPPCApplicationDevProperties}"
                 echo "isPPCApplicationUatProperties : ${isPPCApplicationUatProperties}"
                 echo "isPPCApplicationProdProperties : ${isPPCApplicationProdProperties}"
