@@ -26,6 +26,10 @@ def runJenkinsfile() {
     def branchNameHY
     def branchType
     def artifactoryRepoURL
+    def isPPCJenkinsYaml = false
+    def isPPCApplicationDevProperties = false
+    def isPPCApplicationUatProperties = false
+    def isPPCApplicationProdProperties = false
 
 
     node('maven') {
@@ -72,12 +76,46 @@ def runJenkinsfile() {
 
                 echo "Parallel configuration project ${parallelConfigurationProject} exits"
 
+                // Jenkins.yml
                 try {
                     params = readYaml file: '/tmp/configs/Jenkins.yml'
-                    echo "Parallel configuration project params loaded"
+                    isPPCJenkinsYaml = true
+                    echo "Parallel configuration project Jenkins.yml found"
                 } catch (exc) {
-                    echo 'Something failed at params loading'
+                    echo "Parallel configuration project Jenkins.yml not found"
                 }
+
+                try {
+                    readProperties file: '/tmp/configs//configuration_profiles/application-dev.properties'
+                    isPPCApplicationDevProperties = true
+                    echo "Parallel configuration project profile application-dev.properties found"
+                } catch (exc) {
+                    echo "Parallel configuration project profile application-dev.properties not found"
+                }
+
+                //application-uat.properties
+                try {
+                    readProperties file: '/tmp/configs//configuration_profiles/application-uat.properties'
+                    isPPCApplicationUatProperties = true
+                    echo "Parallel configuration project profile application-uat.properties found"
+                } catch (exc) {
+                    echo "Parallel configuration project profile application-uat.properties not found"
+                }
+
+
+                //application-prod.properties
+                try {
+                    readProperties file: '/tmp/configs//configuration_profiles/application-prod.properties'
+                    isPPCApplicationProdProperties = true
+                    echo "Parallel configuration project profile application-prod.properties found"
+                } catch (exc) {
+                    echo "Parallel configuration project profile application-prod.properties not found"
+                }
+
+                echo "isPPCJenkinsYaml : ${isPPCJenkinsYaml}"
+                echo "isPPCApplicationDevProperties : ${isPPCApplicationDevProperties}"
+                echo "isPPCApplicationUatProperties : ${isPPCApplicationUatProperties}"
+                echo "isPPCApplicationProdProperties : ${isPPCApplicationProdProperties}"
 
             }
             catch (exc) {
