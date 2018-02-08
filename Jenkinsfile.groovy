@@ -89,7 +89,7 @@ def runJenkinsfile() {
                 //application-dev.properties
                 isPPCApplicationDevProperties = fileExists '/tmp/configs//configuration_profiles/application-dev.properties'
 
-                if (isPPCApplicationDevProperties)
+                if (isPPCApplicationDevProperties) {
                     echo "Parallel configuration project profile application-dev.properties found"
                 } else {
                     echo "Parallel configuration project profile application-dev.properties not found"
