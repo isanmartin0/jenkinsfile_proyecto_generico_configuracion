@@ -59,6 +59,8 @@ def runJenkinsfile() {
             try {
                 def parallelConfigurationProject = utils.getParallelConfigurationProjectURL(projectURL, artifactId)
 
+                echo "Parallel configuration project " parallelConfigurationProject " searching"
+
                 checkout([$class                           : 'GitSCM',
                           branches                         : [[name: 'master']],
                           doGenerateSubmoduleConfigurations: false,
