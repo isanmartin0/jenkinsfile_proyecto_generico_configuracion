@@ -49,7 +49,7 @@ def runGenericJenkinsfile() {
     def branchGenericPGC = 'master'
     def credentialsIdGenericPGC = 'f8692545-6ab0-479b-aac6-02f66050aab4'
     def jenkinsYamlGenericPath = relativeTargetDirGenericPGC + 'Jenkins.yml'
-    def openshiftTemplateGenericPath = relativeTargetDirGenericPGC + kube/template.yaml'
+    def openshiftTemplateGenericPath = relativeTargetDirGenericPGC + 'kube/template.yaml'
     def isGenericJenkinsYaml = false
 
 
