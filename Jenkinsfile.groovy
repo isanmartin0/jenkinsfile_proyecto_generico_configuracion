@@ -36,20 +36,20 @@ def runGenericJenkinsfile() {
     def isPPCApplicationDevProperties = false
     def isPPCApplicationUatProperties = false
     def isPPCApplicationProdProperties = false
-    def jenkinsFilePathPPC = '/tmp/configs/PPC/Jenkinsfile'
-    def jenkinsYamlPathPPC = '/tmp/configs/PPC/Jenkins.yml'
-    def openshiftTemplatePathPPC = '/tmp/configs/PPC/kube/template.yaml'
-    def applicationDevPropertiesPathPPC = '/tmp/configs/PPC/configuration_profiles/dev/application-dev.properties'
-    def applicationUatPropertiesPathPPC = '/tmp/configs/PPC/configuration_profiles/uat/application-uat.properties'
-    def applicationProdPropertiesPathPPC = '/tmp/configs/PPC/configuration_profiles/prod/application-prod.properties'
+    def jenkinsFilePathPPC = relativeTargetDirPPC + 'Jenkinsfile'
+    def jenkinsYamlPathPPC = relativeTargetDirPPC + 'Jenkins.yml'
+    def openshiftTemplatePathPPC = relativeTargetDirPPC + 'kube/template.yaml'
+    def applicationDevPropertiesPathPPC = relativeTargetDirPPC + 'configuration_profiles/dev/application-dev.properties'
+    def applicationUatPropertiesPathPPC = relativeTargetDirPPC + 'configuration_profiles/uat/application-uat.properties'
+    def applicationProdPropertiesPathPPC = relativeTargetDirPPC + 'configuration_profiles/prod/application-prod.properties'
     def jenknsFilePipelinePPC
 
     def gitDefaultProjectConfigurationPath='https://github.com/isanmartin0/jenkinsfile_proyecto_generico_configuracion'
     def relativeTargetDirGenericPGC = '/tmp/configs/generic'
     def branchGenericPGC = 'master'
     def credentialsIdGenericPGC = 'f8692545-6ab0-479b-aac6-02f66050aab4'
-    def jenkinsYamlGenericPath = '/tmp/configs/generic/Jenkins.yml'
-    def openshiftTemplateGenericPath = '/tmp/configs/generic/kube/template.yaml'
+    def jenkinsYamlGenericPath = relativeTargetDirGenericPGC + 'Jenkins.yml'
+    def openshiftTemplateGenericPath = relativeTargetDirGenericPGC + kube/template.yaml'
     def isGenericJenkinsYaml = false
 
 
@@ -221,20 +221,33 @@ def runGenericJenkinsfile() {
 
                     echo "Generic configuration project loaded"
 
-                    if (isPPCJenkinsYaml) {
-                        params = readYaml  file: jenkinsYamlPathPPC
-                    } else {
-                        params = readYaml  file: jenkinsYamlGenericPath
-                    }
-
                     assert params.openshift.templatePath?.trim()
 
-                    echo "params.openshift.templatePath: ${params.openshift.templatePath}"
+                    if (isPPCJenkinsYaml) {
+                        //Take parameters of the parallel project configuration (PPC)
+                        params = readYaml  file: jenkinsYamlPathPPC
+                        echo "Using Jenkins.yml from parallel project configuration (PPC)"
 
-                    if (isPPCOpenshiftTemplate) {
+                    } else {
+                        //Take the generic parameters
+                        params = readYaml  file: jenkinsYamlGenericPath
+                        echo "Using Jenkins.yml from generic project"
 
                     }
 
+
+
+                    if (isPPCOpenshiftTemplate) {
+                        //The template is provided by parallel project configuration (PPC)
+                        params.openshift.templatePath = relativeTargetDirPPC + params.openshift.templatePath
+                        echo "Template provided by parallet project configuration (PPC)"
+                    } else {
+                        //The tamplate is provided by generic configuration
+                        params.openshift.templatePath = relativeTargetDirGenericPGC + params.openshift.templatePath
+                        echo "Template provided by generic configuration project"
+                    }
+
+                    echo "params.openshift.templatePath: ${params.openshift.templatePath}"
                 }
 
             }
