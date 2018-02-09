@@ -175,7 +175,7 @@ def runGenericJenkinsfile() {
 
         isPPCJenkinsFile = false
         isPPCJenkinsYaml = false
-        isPPCOpenshiftTemplate = false
+        isPPCOpenshiftTemplate = true
 
 
         if (isPPCJenkinsFile) {
@@ -253,26 +253,6 @@ def runGenericJenkinsfile() {
         }
 
 
-        stage('FAKE OpenShift Build') {
-            echo "Building image on OpenShift...(FAKE)"
-
-            checkTemplate {
-                oseCredential = openshiftCredential
-                cloudURL = openshiftURL
-                environment = envLabel
-                jenkinsNS = jenkinsNamespace
-                artCredential = artifactoryCredential
-                template = params.openshift.templatePath
-                branchHY = branchNameHY
-                branch_type = branchType
-                dockerRegistry = registry
-            }
-        }
-
-        stage('Decide on Deploying') {
-            deploy = input message: 'Waiting for user approval',
-                    parameters: [choice(name: 'Continue and deploy?', choices: 'No\nYes', description: 'Choose "Yes" if you want to deploy this build')]
-        }
 
 
 
