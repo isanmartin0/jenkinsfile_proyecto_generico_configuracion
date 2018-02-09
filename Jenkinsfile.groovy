@@ -82,23 +82,7 @@ def runGenericJenkinsfile() {
             def artifactId = pom.artifactId
 
             try {
-                def parallelConfigurationProject = utils.getParallelConfigurationProjectURL(projectURL, artifactId)
-
-                echo "Generic configuration project loading"
-
-                checkout([$class                           : 'GitSCM',
-                          branches                         : [[name: 'master']],
-                          doGenerateSubmoduleConfigurations: false,
-                          extensions                       : [[$class           : 'RelativeTargetDirectory',
-                                                               relativeTargetDir: '/tmp/configs/generic']],
-                          submoduleCfg                     : [],
-                          userRemoteConfigs                : [[credentialsId: 'f8692545-6ab0-479b-aac6-02f66050aab4',
-                                                               url          : 'https://github.com/isanmartin0/jenkinsfile_proyecto_generico_configuracion']]])
-
-                echo "Generic configuration project loaded"
-
-
-
+                def parallelConfigurationProject = utils.getParallelConfigurationProjectURL(projectURL, artifactId) + 'xxx'
 
                 echo "Parallel configuration project ${parallelConfigurationProject} searching"
 
@@ -210,9 +194,27 @@ def runGenericJenkinsfile() {
 
             stage('Load pipeline configuration') {
 
-                if (isPPCJenkinsYaml) {
+                if (isPPCJenkinsYaml && isPPCOpenshiftTemplate) {
+                    //The generic pipeline will use Jenkins.yml and template of the parallel project configuration
 
                 } else {
+                    //The generic pipeline will use generic Jenkins.yml or generic Openshift template
+                    //We need load this elements
+
+                    echo "Generic configuration project loading"
+
+                    checkout([$class                           : 'GitSCM',
+                              branches                         : [[name: 'master']],
+                              doGenerateSubmoduleConfigurations: false,
+                              extensions                       : [[$class           : 'RelativeTargetDirectory',
+                                                                   relativeTargetDir: '/generic/configs/']],
+                              submoduleCfg                     : [],
+                              userRemoteConfigs                : [[credentialsId: 'f8692545-6ab0-479b-aac6-02f66050aab4',
+                                                                   url          : 'https://github.com/isanmartin0/jenkinsfile_proyecto_generico_configuracion']]])
+
+                    echo "Generic configuration project loaded"
+
+
                     echo "Loading Generic Configuration Project (PGC) Jenkins.yml"
                     params = readYaml  file: jenkinsYamlGenericPath
                     echo "Generic Configuration Project (PGC) Jenkins.yml loaded"
