@@ -54,7 +54,7 @@ def runGenericJenkinsfile() {
 
     node('maven') {
         echo "BEGIN GENERIC CONFIGURATION PROJECT (PGC)"
-        sleep 10
+        //sleep 10
         checkout scm
 
         stage('Prepare') {
@@ -85,6 +85,7 @@ def runGenericJenkinsfile() {
 
                 echo "Generic configuration project loading"
 
+                /*
                 checkout([$class                           : 'GitSCM',
                           branches                         : [[name: 'master']],
                           doGenerateSubmoduleConfigurations: false,
@@ -103,7 +104,7 @@ def runGenericJenkinsfile() {
                 } else {
                     echo "Generic configuration project Jenkins.yml not found"
                 }
-
+*/
 
 
                 echo "Parallel configuration project ${parallelConfigurationProject} searching"
@@ -118,6 +119,9 @@ def runGenericJenkinsfile() {
                                                                url          : parallelConfigurationProject]]])
 
                 echo "Parallel configuration project ${parallelConfigurationProject} exits"
+
+                currentBuild.result = 'ABORTED'
+                error('Stopping early…')
 
                 // Jenkinsfile
                 isPPCJenkinsFile = fileExists jenkinsFilePathPPC
