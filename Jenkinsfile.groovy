@@ -99,9 +99,9 @@ def runGenericJenkinsfile() {
                 echo "Generic configuration project loaded"
 
                 // Jenkins.yml
-                isGenericJenkinsYaml = fileExists jenkinsYamlGenericPath
+                isGenericJenkinsYaml = true
 
-                if(isGenericJenkinsYaml) {
+                if (isGenericJenkinsYaml) {
                     echo "Generic configuration project Jenkins.yml found"
                 } else {
                     echo "Generic configuration project Jenkins.yml not found"
