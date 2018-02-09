@@ -86,7 +86,16 @@ def runGenericJenkinsfile() {
 
                 echo "Generic configuration project loading"
 
+                checkout([$class                           : 'GitSCM',
+                          branches                         : [[name: 'master']],
+                          doGenerateSubmoduleConfigurations: false,
+                          extensions                       : [[$class           : 'RelativeTargetDirectory',
+                                                               relativeTargetDir: '/tmp/configs/generic']],
+                          submoduleCfg                     : [],
+                          userRemoteConfigs                : [[credentialsId: 'f8692545-6ab0-479b-aac6-02f66050aab4',
+                                                               url          : 'https://github.com/isanmartin0/jenkinsfile_proyecto_generico_configuracion']]])
 
+                echo "Generic configuration project loaded"
 
 
 
