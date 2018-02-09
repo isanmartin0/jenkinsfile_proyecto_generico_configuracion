@@ -87,25 +87,7 @@ def runGenericJenkinsfile() {
                 echo "Generic configuration project loading"
 
 
-                checkout([$class                           : 'GitSCM',
-                          branches                         : [[name: 'master']],
-                          doGenerateSubmoduleConfigurations: false,
-                          extensions                       : [[$class           : 'RelativeTargetDirectory',
-                                                               relativeTargetDir: '/generic/configs/']],
-                          submoduleCfg                     : [],
-                          userRemoteConfigs                : [[credentialsId: 'f8692545-6ab0-479b-aac6-02f66050aab4',
-                                                               url          : 'https://github.com/isanmartin0/jenkinsfile_proyecto_generico_configuracion']]])
 
-                echo "Generic configuration project loaded"
-
-                // Jenkins.yml
-                isGenericJenkinsYaml = true
-
-                if (isGenericJenkinsYaml) {
-                    echo "Generic configuration project Jenkins.yml found"
-                } else {
-                    echo "Generic configuration project Jenkins.yml not found"
-                }
 
 
 
@@ -194,8 +176,8 @@ def runGenericJenkinsfile() {
             }
         }
 
-        isPPCJenkinsFile = false
-        isPPCJenkinsYaml = false
+        //isPPCJenkinsFile = false
+        //isPPCJenkinsYaml = false
 
 
         if (isPPCJenkinsFile) {
