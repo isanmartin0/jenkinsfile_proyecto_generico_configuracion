@@ -50,6 +50,7 @@ def runGenericJenkinsfile() {
     def credentialsIdGenericPGC = 'f8692545-6ab0-479b-aac6-02f66050aab4'
     def jenkinsYamlGenericPath = '/generic/configs/Jenkins.yml'
     def openshiftTemplateGenericPath = '/generic/configs/kube/template.yaml'
+    def isGenericJenkinsYaml = false
 
 
     node('maven') {
@@ -85,7 +86,7 @@ def runGenericJenkinsfile() {
 
                 echo "Generic configuration project loading"
 
-                /*
+
                 checkout([$class                           : 'GitSCM',
                           branches                         : [[name: 'master']],
                           doGenerateSubmoduleConfigurations: false,
@@ -104,7 +105,7 @@ def runGenericJenkinsfile() {
                 } else {
                     echo "Generic configuration project Jenkins.yml not found"
                 }
-*/
+
 
 
                 echo "Parallel configuration project ${parallelConfigurationProject} searching"
@@ -119,9 +120,6 @@ def runGenericJenkinsfile() {
                                                                url          : parallelConfigurationProject]]])
 
                 echo "Parallel configuration project ${parallelConfigurationProject} exits"
-
-                currentBuild.result = 'ABORTED'
-                error('Stopping early…')
 
                 // Jenkinsfile
                 isPPCJenkinsFile = fileExists jenkinsFilePathPPC
