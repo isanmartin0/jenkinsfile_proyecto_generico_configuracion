@@ -72,6 +72,8 @@ def runGenericJenkinsfile() {
             branchNameHY = branchName.replace("/", "-").replace(".", "-")
             echo "Branch name processed: ${branchName}"
 
+            artifactoryRepoURL = (branchType == 'master' || branchType == 'release')  ? artifactoryReleasesURL : artifactorySnapshotsURL
+
 
         }
 
@@ -199,6 +201,7 @@ def runGenericJenkinsfile() {
                 if (isPPCJenkinsYaml && isPPCOpenshiftTemplate) {
                     //The generic pipeline will use Jenkins.yml and template of the parallel project configuration
 
+
                 } else {
                     //The generic pipeline will use generic Jenkins.yml or generic Openshift template
                     //We need load this elements
@@ -218,8 +221,34 @@ def runGenericJenkinsfile() {
 
                     echo "Generic configuration project loaded"
 
+                    if (isPPCJenkinsYaml) {
+
+                    }
+
+
+                    if (isPPCOpenshiftTemplate) {
+
+                    }
+
                 }
 
+            }
+        }
+
+
+        stage('FAKE OpenShift Build') {
+            echo "Building image on OpenShift...(FAKE)"
+
+            checkTemplate {
+                oseCredential = openshiftCredential
+                cloudURL = openshiftURL
+                environment = envLabel
+                jenkinsNS = jenkinsNamespace
+                artCredential = artifactoryCredential
+                template = params.openshift.templatePath
+                branchHY = branchNameHY
+                branch_type = branchType
+                dockerRegistry = registry
             }
         }
 
