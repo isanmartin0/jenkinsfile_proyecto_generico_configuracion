@@ -86,15 +86,17 @@ def runGenericJenkinsfile() {
 
                 echo "Parallel configuration project ${parallelConfigurationProject} searching"
 
-                checkout([$class                           : 'GitSCM',
-                          branches                         : [[name: branchPPC]],
-                          doGenerateSubmoduleConfigurations: false,
-                          extensions                       : [[$class           : 'RelativeTargetDirectory',
-                                                               relativeTargetDir: relativeTargetDirPPC]],
-                          submoduleCfg                     : [],
-                          userRemoteConfigs                : [[credentialsId: credentialsIdPPC,
-                                                               url          : parallelConfigurationProject]]])
-
+                retry (3)
+                        {
+                            checkout([$class                           : 'GitSCM',
+                                      branches                         : [[name: branchPPC]],
+                                      doGenerateSubmoduleConfigurations: false,
+                                      extensions                       : [[$class           : 'RelativeTargetDirectory',
+                                                                           relativeTargetDir: relativeTargetDirPPC]],
+                                      submoduleCfg                     : [],
+                                      userRemoteConfigs                : [[credentialsId: credentialsIdPPC,
+                                                                           url          : parallelConfigurationProject]]])
+                        }
                 echo "Parallel configuration project ${parallelConfigurationProject} exits"
 
                 // Jenkinsfile
