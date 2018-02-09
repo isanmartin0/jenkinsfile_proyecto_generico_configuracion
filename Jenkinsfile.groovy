@@ -82,7 +82,7 @@ def runGenericJenkinsfile() {
             def artifactId = pom.artifactId
 
             try {
-                def parallelConfigurationProject = utils.getParallelConfigurationProjectURL(projectURL, artifactId) + 'xxx'
+                def parallelConfigurationProject = utils.getParallelConfigurationProjectURL(projectURL, artifactId)
 
                 echo "Parallel configuration project ${parallelConfigurationProject} searching"
 
