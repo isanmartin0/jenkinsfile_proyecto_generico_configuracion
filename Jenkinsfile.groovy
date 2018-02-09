@@ -257,6 +257,11 @@ def runGenericJenkinsfile() {
             }
         }
 
+        stage('Decide on Deploying') {
+            deploy = input message: 'Waiting for user approval',
+                    parameters: [choice(name: 'Continue and deploy?', choices: 'No\nYes', description: 'Choose "Yes" if you want to deploy this build')]
+        }
+
 
 
         echo "END (PGC)"
