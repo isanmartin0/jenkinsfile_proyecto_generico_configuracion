@@ -95,6 +95,17 @@ def runGenericJenkinsfile() {
                                                                url          : gitDefaultProjectConfigurationPath]]])
 
 
+                // Jenkins.yml
+                isGenericJenkinsYaml = fileExists jenkinsYamlGenericPath
+
+                if(isGenericJenkinsYaml) {
+                    echo "Generic configuration project Jenkins.yml found"
+                } else {
+                    echo "Generic configuration project Jenkins.yml not found"
+                }
+
+
+
                 echo "Parallel configuration project ${parallelConfigurationProject} searching"
 
                 checkout([$class                           : 'GitSCM',
