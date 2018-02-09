@@ -29,27 +29,27 @@ def runGenericJenkinsfile() {
 
     def branchPPC = 'master'
     def credentialsIdPPC = 'f8692545-6ab0-479b-aac6-02f66050aab4'
-    def relativeTargetDirPPC = '/ppc/configs/'
+    def relativeTargetDirPPC = '/tmp/configs/PPC/'
     def isPPCJenkinsFile = false
     def isPPCJenkinsYaml = false
     def isPPCOpenshiftTemplate = false
     def isPPCApplicationDevProperties = false
     def isPPCApplicationUatProperties = false
     def isPPCApplicationProdProperties = false
-    def jenkinsFilePathPPC = '/ppc/configs/Jenkinsfile'
-    def jenkinsYamlPathPPC = '/ppc/configs/Jenkins.yml'
-    def openshiftTemplatePathPPC = '/ppc/configs/kube/template.yaml'
-    def applicationDevPropertiesPathPPC = '/ppc/configs/configuration_profiles/dev/application-dev.properties'
-    def applicationUatPropertiesPathPPC = '/ppc/configs/configuration_profiles/uat/application-uat.properties'
-    def applicationProdPropertiesPathPPC = '/ppc/configs/configuration_profiles/prod/application-prod.properties'
+    def jenkinsFilePathPPC = '/tmp/configs/PPC/Jenkinsfile'
+    def jenkinsYamlPathPPC = '/tmp/configs/PPC/Jenkins.yml'
+    def openshiftTemplatePathPPC = '/tmp/configs/PPC/kube/template.yaml'
+    def applicationDevPropertiesPathPPC = '/tmp/configs/PPC/configuration_profiles/dev/application-dev.properties'
+    def applicationUatPropertiesPathPPC = '/tmp/configs/PPC/configuration_profiles/uat/application-uat.properties'
+    def applicationProdPropertiesPathPPC = '/tmp/configs/PPC/configuration_profiles/prod/application-prod.properties'
     def jenknsFilePipelinePPC
 
     def gitDefaultProjectConfigurationPath='https://github.com/isanmartin0/jenkinsfile_proyecto_generico_configuracion'
-    def relativeTargetDirGenericPGC = '/generic/configs/'
+    def relativeTargetDirGenericPGC = '/tmp/configs/generic'
     def branchGenericPGC = 'master'
     def credentialsIdGenericPGC = 'f8692545-6ab0-479b-aac6-02f66050aab4'
-    def jenkinsYamlGenericPath = '/generic/configs/Jenkins.yml'
-    def openshiftTemplateGenericPath = '/generic/configs/kube/template.yaml'
+    def jenkinsYamlGenericPath = '/tmp/configs/generic/Jenkins.yml'
+    def openshiftTemplateGenericPath = '/tmp/configs/generic/kube/template.yaml'
     def isGenericJenkinsYaml = false
 
 
