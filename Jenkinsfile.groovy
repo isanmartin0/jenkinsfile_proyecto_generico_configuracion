@@ -205,21 +205,19 @@ def runGenericJenkinsfile() {
 
                     echo "Generic configuration project loading"
 
-                    checkout([$class                           : 'GitSCM',
-                              branches                         : [[name: 'master']],
-                              doGenerateSubmoduleConfigurations: false,
-                              extensions                       : [[$class           : 'RelativeTargetDirectory',
-                                                                   relativeTargetDir: '/generic/configs/']],
-                              submoduleCfg                     : [],
-                              userRemoteConfigs                : [[credentialsId: 'f8692545-6ab0-479b-aac6-02f66050aab4',
-                                                                   url          : 'https://github.com/isanmartin0/jenkinsfile_proyecto_generico_configuracion']]])
+                    retry (3) {
+                        checkout([$class                           : 'GitSCM',
+                                  branches                         : [[name: branchGenericPGC]],
+                                  doGenerateSubmoduleConfigurations: false,
+                                  extensions                       : [[$class           : 'RelativeTargetDirectory',
+                                                                       relativeTargetDir: relativeTargetDirGenericPGC]],
+                                  submoduleCfg                     : [],
+                                  userRemoteConfigs                : [[credentialsId: credentialsIdGenericPGC,
+                                                                       url          : gitDefaultProjectConfigurationPath]]])
+                    }
 
                     echo "Generic configuration project loaded"
 
-
-                    echo "Loading Generic Configuration Project (PGC) Jenkins.yml"
-                    params = readYaml  file: jenkinsYamlGenericPath
-                    echo "Generic Configuration Project (PGC) Jenkins.yml loaded"
                 }
 
             }
