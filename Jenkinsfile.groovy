@@ -175,6 +175,7 @@ def runGenericJenkinsfile() {
 
         isPPCJenkinsFile = false
         isPPCJenkinsYaml = false
+        isPPCOpenshiftTemplate = false
 
 
         if (isPPCJenkinsFile) {
@@ -221,20 +222,18 @@ def runGenericJenkinsfile() {
 
                     echo "Generic configuration project loaded"
 
-                    assert params.openshift.templatePath?.trim()
 
                     if (isPPCJenkinsYaml) {
                         //Take parameters of the parallel project configuration (PPC)
                         params = readYaml  file: jenkinsYamlPathPPC
                         echo "Using Jenkins.yml from parallel project configuration (PPC)"
-
                     } else {
                         //Take the generic parameters
                         params = readYaml  file: jenkinsYamlGenericPath
                         echo "Using Jenkins.yml from generic project"
-
                     }
 
+                    assert params.openshift.templatePath?.trim()
 
 
                     if (isPPCOpenshiftTemplate) {
