@@ -222,9 +222,14 @@ def runGenericJenkinsfile() {
                     echo "Generic configuration project loaded"
 
                     if (isPPCJenkinsYaml) {
-
+                        params = readYaml  file: jenkinsYamlPathPPC
+                    } else {
+                        params = readYaml  file: jenkinsYamlGenericPath
                     }
 
+                    assert params.openshift.templatePath?.trim()
+
+                    echo "params.openshift.templatePath: ${params.openshift.templatePath}"
 
                     if (isPPCOpenshiftTemplate) {
 
