@@ -189,7 +189,7 @@ def runGenericJenkinsfile() {
             }
             catch (exc) {
                 echo 'Something failed, I should sound the klaxons!'
-                def exc_message = e.message
+                def exc_message = exc.message
                 echo "${exc_message}"
             }
         }
