@@ -45,7 +45,7 @@ def runGenericJenkinsfile() {
     def jenknsFilePipelinePPC
 
     def gitDefaultProjectConfigurationPath='https://github.com/isanmartin0/jenkinsfile_proyecto_generico_configuracion'
-    def relativeTargetDirGenericPGC = '/tmp/configs/generic'
+    def relativeTargetDirGenericPGC = '/tmp/configs/generic/'
     def branchGenericPGC = 'master'
     def credentialsIdGenericPGC = 'f8692545-6ab0-479b-aac6-02f66050aab4'
     def jenkinsYamlGenericPath = relativeTargetDirGenericPGC + 'Jenkins.yml'
