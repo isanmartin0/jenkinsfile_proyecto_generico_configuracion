@@ -171,8 +171,8 @@ def runGenericJenkinsfile() {
             }
         }
 
-        //isPPCJenkinsFile = false
-        //isPPCJenkinsYaml = false
+        isPPCJenkinsFile = false
+        isPPCJenkinsYaml = false
 
 
         if (isPPCJenkinsFile) {
