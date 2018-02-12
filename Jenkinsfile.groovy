@@ -1,9 +1,6 @@
 #!/usr/bin/groovy
 import com.evobanco.Utils
 
-
-
-
 def runGenericJenkinsfile() {
 
     def utils = new com.evobanco.Utils()
@@ -26,7 +23,7 @@ def runGenericJenkinsfile() {
     def branchType
     def artifactoryRepoURL
 
-
+    //Parallet project configuration properties
     def branchPPC = 'master'
     def credentialsIdPPC = 'f8692545-6ab0-479b-aac6-02f66050aab4'
     def relativeTargetDirPPC = '/tmp/configs/PPC/'
@@ -44,6 +41,7 @@ def runGenericJenkinsfile() {
     def applicationProdPropertiesPathPPC = relativeTargetDirPPC + 'configuration_profiles/prod/application-prod.properties'
     def jenknsFilePipelinePPC
 
+    //Generic project configuration properties
     def gitDefaultProjectConfigurationPath='https://github.com/isanmartin0/jenkinsfile_proyecto_generico_configuracion'
     def relativeTargetDirGenericPGC = '/tmp/configs/generic/'
     def branchGenericPGC = 'master'
@@ -59,25 +57,6 @@ def runGenericJenkinsfile() {
 
         //sleep 10
         checkout scm
-
-        stage('Prepare') {
-            echo "Prepare stage (PGC)"
-
-            setDisplayName()
-
-            echo "${currentBuild.displayName}"
-
-            branchName = utils.getBranch()
-            echo "We are on branch ${branchName}"
-            branchType = utils.getBranchType(branchName)
-            echo "This branch is a ${branchType} branch"
-            branchNameHY = branchName.replace("/", "-").replace(".", "-")
-            echo "Branch name processed: ${branchName}"
-
-            artifactoryRepoURL = (branchType == 'master' || branchType == 'release')  ? artifactoryReleasesURL : artifactorySnapshotsURL
-
-
-        }
 
         stage('Detect Parallel project configuration (PPC)') {
 
@@ -254,6 +233,24 @@ def runGenericJenkinsfile() {
             }
 
 
+            stage('Prepare') {
+                echo "Prepare stage (PGC)"
+
+                setDisplayName()
+
+                echo "${currentBuild.displayName}"
+
+                branchName = utils.getBranch()
+                echo "We are on branch ${branchName}"
+                branchType = utils.getBranchType(branchName)
+                echo "This branch is a ${branchType} branch"
+                branchNameHY = branchName.replace("/", "-").replace(".", "-")
+                echo "Branch name processed: ${branchName}"
+
+                artifactoryRepoURL = (branchType == 'master' || branchType == 'release')  ? artifactoryReleasesURL : artifactorySnapshotsURL
+
+
+            }
 
             stage ('Prepare profiles') {
                 switch (branchType) {
@@ -367,7 +364,7 @@ def runGenericJenkinsfile() {
 
     } // end of node
 
-    /*
+
     def deploy = 'Yes'
 
     if (branchType in params.confirmDeploy) {
@@ -442,13 +439,13 @@ def runGenericJenkinsfile() {
             echo "Skipping performance tests..."
         }
     }
-    */
 
-/*
+
+
     stage('Notification') {
         echo "Sending Notifications..."
 
-
+        /*
         if (currentBuild.result != 'SUCCESS') {
             slackSend channel: '#ops-room', color: '#FF0000', message: "The pipeline ${currentBuild.fullDisplayName} has failed."
             hipchatSend (color: 'RED', notify: true, message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
@@ -459,13 +456,11 @@ def runGenericJenkinsfile() {
                     recipientProviders: [[$class: 'DevelopersRecipientProvider']]
             )
         }
+        */
 
     }
-    */
 
-
-
-    echo "END (PGC)"
+    echo "END GENERIC CONFIGURATION PROJECT (PGC)"
 
 } //end of method
 
