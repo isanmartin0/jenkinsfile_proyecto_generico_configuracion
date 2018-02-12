@@ -154,6 +154,7 @@ def runGenericJenkinsfile() {
             }
         }
 
+        //Set to force the execution. Remove after tests
         isPPCJenkinsFile = false
         isPPCJenkinsYaml = false
         isPPCOpenshiftTemplate = true
