@@ -1,0 +1,21 @@
+#!/usr/bin/env groovy
+@Library('msa-cicd-jenkins-shared-libs')_
+
+def jenkinsFile
+def gitDefaultProjectConfigurationPath='https://github.com/isanmartin0/jenkinsfile_proyecto_generico_configuracion'
+def gitDefaultProjectConfigurationJenkinsFile='Jenkinsfile'
+def gitDefaultProjectConfigurationBranch='master'
+def gitDefaultProjectConfigurationCredentials='f8692545-6ab0-479b-aac6-02f66050aab4'
+def gitDefaultProjectConfigurationJenkinsNode=''
+
+
+stage('Generic Jenkinsfile (PGC) load') {
+  echo "Loading Jenkins file (PGC)"
+  jenkinsFile = fileLoader.fromGit(gitDefaultProjectConfigurationJenkinsFile,
+                                   gitDefaultProjectConfigurationPath,
+                                   gitDefaultProjectConfigurationBranch,
+                                   gitDefaultProjectConfigurationCredentials,
+                                   gitDefaultProjectConfigurationJenkinsNode)
+
+  jenkinsFile.runGenericJenkinsfile()
+}
