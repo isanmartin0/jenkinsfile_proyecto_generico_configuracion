@@ -333,6 +333,9 @@ def runGenericJenkinsfile() {
                     stage('SonarQube') {
                         echo "Running SonarQube..."
 
+                        echo "groupId: ${env.POM_GROUPID}"
+                        echo "artifactId: ${env.POM_ARTIFACTID}"
+
                         echo "groupId: ${POM_GROUPID}"
                         echo "artifactId: ${POM_ARTIFACTID}"
 
