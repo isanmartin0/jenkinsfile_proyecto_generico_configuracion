@@ -323,9 +323,9 @@ def runGenericJenkinsfile() {
                     stage('SonarQube') {
                         echo "Running SonarQube..."
 
-                        def projectKey = ${PROJECT} + branchNameHY
-                        echo "projectKey: ${projectKey}"
-                        sh "${mavenCmd} sonar:sonar -Dsonar.host.url=${sonarQube} ${mavenProfile}"
+                        def sonar_project_key = ${PROJECT} + branchNameHY
+                        echo "sonar_project_key: ${sonar_project_key}"
+                        sh "${mavenCmd} sonar:sonar -Dsonar.host.url=${sonarQube} ${mavenProfile} -Dsonar.projectKey=${sonar_project_key} -Dsonar.projectName=${sonar_project_key}"
                     }
                 } else {
                     echo "Skipping Running SonarQube..."
