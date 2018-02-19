@@ -50,6 +50,11 @@ def runGenericJenkinsfile() {
     def openshiftTemplateGenericPath = relativeTargetDirGenericPGC + 'kube/template.yaml'
     def isGenericJenkinsYaml = false
 
+    def pom
+    def projectURL
+    def artifactId
+    def groupId
+
 
     echo "BEGIN GENERIC CONFIGURATION PROJECT (PGC)"
 
@@ -60,9 +65,14 @@ def runGenericJenkinsfile() {
 
         stage('Detect Parallel project configuration (PPC)') {
 
-            def pom = readMavenPom()
-            def projectURL = pom.url
-            def artifactId = pom.artifactId
+            pom = readMavenPom()
+            projectURL = pom.url
+            artifactId = pom.artifactId
+            groupId = pom.groupId.trim()
+            if (groupId == null || "".equals(groupId)) {
+                groupId = pom.parent.groupId.trim()
+            }
+
 
             try {
                 def parallelConfigurationProject = utils.getParallelConfigurationProjectURL(projectURL, artifactId)
@@ -322,11 +332,6 @@ def runGenericJenkinsfile() {
                 if (branchType in params.testing.predeploy.sonarQube) {
                     stage('SonarQube') {
                         echo "Running SonarQube..."
-
-                        def groupId = pom.groupId
-                        if (groupId == null || "".equals(groupId)) {
-                            groupId = pom.parent.groupId
-                        }
 
                         echo "groupId: ${groupId}"
                         echo "artifactId: ${artifactId}"
