@@ -336,8 +336,8 @@ def runGenericJenkinsfile() {
                         echo "groupId: ${groupId}"
                         echo "artifactId: ${artifactId}"
 
-                        def sonar_project_key = ${groupId} + ":" + ${artifactId} + "-" + branchNameHY
-                        def sonar_project_name = ${artifactId} + "-" + branchNameHY
+                        def sonar_project_key = groupId + ":" + artifactId + "-" + branchNameHY
+                        def sonar_project_name = artifactId + "-" + branchNameHY
 
                         echo "sonar_project_key: ${sonar_project_key}"
                         echo "sonar_project_name: ${sonar_project_name}"
