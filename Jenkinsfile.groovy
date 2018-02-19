@@ -349,6 +349,15 @@ def runGenericJenkinsfile() {
                     echo "Skipping Running SonarQube..."
                 }
 
+
+                def continuar = input message: 'Waiting for user approval',
+                        parameters: [choice(name: 'Continue and deploy?', choices: 'No\nYes', description: 'Choose "Yes" if you want to deploy this build')]
+
+                if (continuar == 'No') {
+                    currentBuild.rawBuild.result = Result.ABORTED
+                    throw new hudson.AbortException('Guess what!')
+                }
+
                 stage('Artifact Deploy') {
                     echo "Deploying artifact to Artifactory..."
                     sh "${mavenCmd} deploy -DskipTests=true -Dcheckstyle.skip=true ${mavenProfile}"
