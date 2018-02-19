@@ -333,11 +333,14 @@ def runGenericJenkinsfile() {
                     stage('SonarQube') {
                         echo "Running SonarQube..."
 
-                        echo "groupId: ${groupId}"
-                        echo "artifactId: ${artifactId}"
+                        echo "groupId: ${POM_GROUPID}"
+                        echo "artifactId: ${POM_ARTIFACTID}"
 
-                        def sonar_project_key = groupId + ":" + artifactId + "-" + branchNameHY
-                        def sonar_project_name = artifactId + "-" + branchNameHY
+                        //def sonar_project_key = groupId + ":" + artifactId + "-" + branchNameHY
+                        //def sonar_project_name = artifactId + "-" + branchNameHY
+
+                        def sonar_project_key = ${POM_GROUPID} + ":" + ${POM_ARTIFACTID} + "-" + branchNameHY
+                        def sonar_project_name = ${POM_ARTIFACTID} + "-" + branchNameHY
 
                         echo "sonar_project_key: ${sonar_project_key}"
                         echo "sonar_project_name: ${sonar_project_name}"
