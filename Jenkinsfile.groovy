@@ -68,11 +68,17 @@ def runGenericJenkinsfile() {
             pom = readMavenPom()
             projectURL = pom.url
             artifactId = pom.artifactId
-            groupId = pom.groupId.trim()
+            groupId = pom.groupId
             /*
             if (groupId == null || "".equals(groupId)) {
-                groupId = pom.parent.groupId.trim()
+                groupId = pom.parent.groupId
             }
+
+            if (groupId != null) {
+                groupId = groupId.trim()
+            }
+
+
 */
 
             try {
