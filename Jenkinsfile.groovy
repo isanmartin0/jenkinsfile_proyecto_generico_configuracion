@@ -23,7 +23,7 @@ def runGenericJenkinsfile() {
     def branchType
     def artifactoryRepoURL
 
-    //Parallet project configuration properties
+    //Parallet project configuration (PPC) properties
     def branchPPC = 'master'
     def credentialsIdPPC = 'f8692545-6ab0-479b-aac6-02f66050aab4'
     def relativeTargetDirPPC = '/tmp/configs/PPC/'
@@ -148,7 +148,7 @@ def runGenericJenkinsfile() {
 
             }
             catch (exc) {
-                echo 'Something failed, I should sound the klaxons!'
+                echo 'There is an error on retrieving parallel project configuration'
                 def exc_message = exc.message
                 echo "${exc_message}"
             }
@@ -322,6 +322,9 @@ def runGenericJenkinsfile() {
                 if (branchType in params.testing.predeploy.sonarQube) {
                     stage('SonarQube') {
                         echo "Running SonarQube..."
+
+                        def projectKey = ${PROJECT} + branchNameHY
+                        echo "projectKey: ${projectKey}"
                         sh "${mavenCmd} sonar:sonar -Dsonar.host.url=${sonarQube} ${mavenProfile}"
                     }
                 } else {
